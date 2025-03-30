@@ -17,10 +17,10 @@ import { useState } from 'react';
 
 type ComboboxProps = {
     options: ComboboxOption[];
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
 };
 
-type ComboboxOption = {
+export type ComboboxOption = {
     label: string;
     value: string;
 };
@@ -57,6 +57,9 @@ export function Combobox({ options = [], onChange }: ComboboxProps) {
                                     onSelect={(currentValue) => {
                                         setValue(currentValue === value ? '' : currentValue);
                                         setOpen(false);
+                                        if (typeof onChange === 'function') {
+                                            onChange(currentValue);
+                                        }
                                     }}
                                 >
                                     {option.label}
