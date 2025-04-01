@@ -18,6 +18,8 @@ import { useState } from 'react';
 type ComboboxProps = {
     options: ComboboxOption[];
     onChange?: (value: string) => void;
+    selectOptionText?: string;
+    searchOptionsText?: string;
 };
 
 export type ComboboxOption = {
@@ -25,7 +27,12 @@ export type ComboboxOption = {
     value: string;
 };
 
-export function Combobox({ options = [], onChange }: ComboboxProps) {
+export function Combobox({
+    options = [],
+    onChange,
+    selectOptionText = 'Select an option...',
+    searchOptionsText = 'Search options...',
+}: ComboboxProps) {
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState('');
 
@@ -40,25 +47,34 @@ export function Combobox({ options = [], onChange }: ComboboxProps) {
                 >
                     {value
                         ? options.find((option) => option.value === value)?.label
-                        : 'Select an option...'}
+                        : selectOptionText}
                     <ChevronsUpDown className='opacity-50' />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className='w-[200px] p-0'>
-                <Command>
-                    <CommandInput placeholder='Search options...' className='h-9' />
+                <Command
+                    filter={(value, search) => {
+                        if (value.toLowerCase().includes(search.toLowerCase())) {
+                            return 1;
+                        }
+                        return 0;
+                    }}
+                >
+                    <CommandInput placeholder={searchOptionsText} className='h-9' />
                     <CommandList>
                         <CommandEmpty>No option found.</CommandEmpty>
                         <CommandGroup>
                             {options.map((option) => (
                                 <CommandItem
                                     key={option.value}
-                                    value={option.value}
+                                    value={`${option.value} ${option.label}`}
                                     onSelect={(currentValue) => {
-                                        setValue(currentValue === value ? '' : currentValue);
+                                        const newValue = currentValue.split(' ')[0];
+                                        const updatedValue = newValue === value ? '' : newValue;
+                                        setValue(updatedValue);
                                         setOpen(false);
                                         if (typeof onChange === 'function') {
-                                            onChange(currentValue);
+                                            onChange(updatedValue);
                                         }
                                     }}
                                 >

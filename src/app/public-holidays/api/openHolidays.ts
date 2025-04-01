@@ -6,9 +6,6 @@ type CountryResponse =
 export const getSupportedCountries = async () => {
     const response = await fetch('https://openholidaysapi.org/Countries', {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
     });
 
     const data = (await response.json()) as CountryResponse;
@@ -24,19 +21,15 @@ export const getSupportedCountries = async () => {
 export type PublicHolidaysResponse =
     paths['/PublicHolidays']['get']['responses']['200']['content']['application/json'];
 
-const firstDate = new Date(new Date().getFullYear(), 0, 1);
-const lastDate = new Date(new Date().getFullYear(), 11, 31);
-
-export const getPublicHolidays = async (countryIsoCode: string) => {
+export const getPublicHolidays = async (countryIsoCode: string, year: number) => {
+    const firstDate = new Date(year, 0, 1);
+    const lastDate = new Date(year, 11, 31);
     const response = await fetch(
         `https://openholidaysapi.org/PublicHolidays?countryIsoCode=${countryIsoCode}&validFrom=${
             firstDate.toISOString().split('T')[0]
         }&validTo=${lastDate.toISOString().split('T')[0]}`,
         {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
         }
     );
 
