@@ -11,6 +11,20 @@ export type Developer = typeof developer;
 
 export const experiences = [
     {
+        company: 'PepsiCo',
+        role: 'Senior Frontend Engineer',
+        duration: 'Jan 2024 - March 2025',
+        location: 'Remote - Bucharest, Romania',
+        image: 'https://media.licdn.com/dms/image/v2/C4E0BAQES6SfNFl84wA/company-logo_200_200/company-logo_200_200/0/1679328336145/pepsico_logo?e=1749686400&v=beta&t=5V6w8395kFBXn_c04tQH5QoD8dUfT-P37iTGS7x3JM4',
+        link: 'https://sodastream.com/',
+        description: [
+            'Designed and implemented a highly performant, SEO-friendly eCommerce store using Next.js with SSG/ISR for optimal speed and scalability.',
+            'Integrated DatoCMS as the headless CMS, ensuring efficient content management and dynamic page generation with GraphQL API',
+            'Achieved 95+ Lighthouse scores for performance, accessibility, and SEO by implementing lazy loading, image optimization, and efficient data fetching strategies.',
+            'Built a reusable component library with React and Tailwind CSS, ensuring consistency and rapid development.',
+        ],
+    },
+    {
         company: 'MiMedia',
         role: 'Senior Frontend Engineer',
         duration: 'Dec 2022 - Present',
@@ -28,7 +42,7 @@ export const experiences = [
         company: 'Shippo',
         role: 'Frontend Engineer',
         duration: 'Mar 2022 - Oct 2022',
-        location: 'Bucharest, Romania',
+        location: 'Remote - Bucharest, Romania',
         image: 'https://media.licdn.com/dms/image/v2/D4D0BAQE-NZ_qLiLGXQ/company-logo_100_100/company-logo_100_100/0/1712281093832/shippo_logo?e=1749081600&v=beta&t=EUjUESmPSwhuNwK42lsJzxuw33w6AMCB7C8p7pdOo_E',
         link: 'https://goshippo.com/',
         description: [
@@ -42,7 +56,7 @@ export const experiences = [
         company: 'Software Defined Automation',
         role: 'Frontend Engineer',
         duration: 'Oct 2021 - Apr 2022',
-        location: 'Bucharest, Romania',
+        location: 'Remote - Bucharest, Romania',
         image: 'https://media.licdn.com/dms/image/v2/C4D0BAQEAJIdlFoySjQ/company-logo_100_100/company-logo_100_100/0/1644845577543/software_defined_automation_logo?e=1749081600&v=beta&t=gi9iWalxd6tKH6yFD9bTICPiahxt18AxKr7FZ_-AqzA',
         link: 'https://www.softwaredefinedautomation.io/',
         description: [
