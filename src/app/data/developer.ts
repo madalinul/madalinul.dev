@@ -13,9 +13,9 @@ export const experiences = [
     {
         company: 'PepsiCo',
         role: 'Senior Frontend Engineer',
-        duration: 'Jan 2024 - March 2025',
+        duration: 'Jan 2024 - Present',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://media.licdn.com/dms/image/v2/C4E0BAQES6SfNFl84wA/company-logo_200_200/company-logo_200_200/0/1679328336145/pepsico_logo?e=1749686400&v=beta&t=5V6w8395kFBXn_c04tQH5QoD8dUfT-P37iTGS7x3JM4',
+        image: 'https://logo.clearbit.com/pepsico.com',
         link: 'https://sodastream.com/',
         description: [
             'Designed and implemented a highly performant, SEO-friendly eCommerce store using Next.js with SSG/ISR for optimal speed and scalability.',
@@ -29,7 +29,7 @@ export const experiences = [
         role: 'Senior Frontend Engineer',
         duration: 'Dec 2022 - Present',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://media.licdn.com/dms/image/v2/C560BAQFPwJrtI1ul6Q/company-logo_100_100/company-logo_100_100/0/1631348603315?e=1749081600&v=beta&t=QX6HHHrpb0mDXgkLFkPqJ9yXL0tAXiSDbndJy-QeucA',
+        image: 'https://logo.clearbit.com/mimedia.com',
         link: 'https://portal.mimedia.com/',
         description: [
             'Developed a cloud storage platform with a full SDLC approach.',
@@ -43,7 +43,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Mar 2022 - Oct 2022',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://media.licdn.com/dms/image/v2/D4D0BAQE-NZ_qLiLGXQ/company-logo_100_100/company-logo_100_100/0/1712281093832/shippo_logo?e=1749081600&v=beta&t=EUjUESmPSwhuNwK42lsJzxuw33w6AMCB7C8p7pdOo_E',
+        image: 'https://logo.clearbit.com/goshippo.com',
         link: 'https://goshippo.com/',
         description: [
             'Designed and developed a shared component library.',
@@ -57,7 +57,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Oct 2021 - Apr 2022',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://media.licdn.com/dms/image/v2/C4D0BAQEAJIdlFoySjQ/company-logo_100_100/company-logo_100_100/0/1644845577543/software_defined_automation_logo?e=1749081600&v=beta&t=gi9iWalxd6tKH6yFD9bTICPiahxt18AxKr7FZ_-AqzA',
+        image: 'https://logo.clearbit.com/softwaredefinedautomation.io',
         link: 'https://www.softwaredefinedautomation.io/',
         description: [
             'Built a code editor and grid-based infrastructure for deployments.',
@@ -71,7 +71,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Mar 2021 - Dec 2021',
         location: 'Remote',
-        image: 'https://media.licdn.com/dms/image/v2/D560BAQHx6_AAcpifBQ/company-logo_100_100/company-logo_100_100/0/1737054862038/grubhub_seamless_logo?e=1749081600&v=beta&t=1wfvpk9dRBma8JLcDfI3NV-bSmWapgM1tXSUjDZzRoI  ',
+        image: 'https://logo.clearbit.com/grubhub.com',
         link: 'https://www.grubhub.com/',
         description: [
             'Optimized performance using virtualization for large data sets.',
@@ -85,7 +85,7 @@ export const experiences = [
         role: 'Javascript Developer',
         duration: 'Nov 2015 - Mar 2021',
         location: 'Bucharest, Romania',
-        image: 'https://media.licdn.com/dms/image/v2/D4E0BAQHxvXqZ0zy4Pg/company-logo_100_100/company-logo_100_100/0/1718800647898/nigsys_logo?e=1749081600&v=beta&t=9yKsdDLwUGmAcHerPG1N2x65-nkP_UYw4le8Nf3veV4',
+        image: 'https://logo.clearbit.com/imajing.eu',
         link: 'https://imajing.eu/',
         description: [
             'Upgraded frontend from jQuery to React Redux stack.',
