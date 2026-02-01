@@ -32,8 +32,25 @@ export function useAvoidButton() {
                 const maxX = window.innerWidth - buttonRect.width - 20;
                 const maxY = window.innerHeight - buttonRect.height - 20;
 
-                const randomX = Math.random() * maxX + 10;
-                const randomY = Math.random() * maxY + 10;
+                const minDistance = 300; // Minimum distance from current position
+                let randomX: number;
+                let randomY: number;
+                let attempts = 0;
+
+                // Keep generating random positions until we find one far enough away
+                do {
+                    randomX = Math.random() * maxX + 10;
+                    randomY = Math.random() * maxY + 10;
+
+                    const currentX = buttonRect.left;
+                    const currentY = buttonRect.top;
+                    const distToNew = Math.sqrt(
+                        Math.pow(randomX - currentX, 2) + Math.pow(randomY - currentY, 2),
+                    );
+
+                    if (distToNew >= minDistance) break;
+                    attempts++;
+                } while (attempts < 20);
 
                 // Calculate offset from initial position
                 setPosition({

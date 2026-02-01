@@ -61,7 +61,7 @@ export default function BeerPage({ params }: { params: Promise<{ slug: string }>
     const { buttonRef, position } = useAvoidButton();
 
     return (
-        <main className='relative min-h-screen overflow-hidden bg-gradient-to-b from-green-100 via-emerald-100 to-green-200'>
+        <main className='relative min-h-screen overflow-hidden bg-gradient-to-b from-green-100 via-emerald-100 to-green-200 select-none'>
             {/* Floating Beers Background */}
             <div className='absolute inset-0 overflow-hidden pointer-events-none'>
                 {bottles.map((bottle) => (
