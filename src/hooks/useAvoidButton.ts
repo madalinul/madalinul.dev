@@ -4,6 +4,7 @@ export function useAvoidButton() {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
     const initialPositionRef = useRef<{ x: number; y: number } | null>(null);
+    const isAtTopRef = useRef(false);
 
     useEffect(() => {
         const moveButton = (clientX: number, clientY: number) => {
@@ -26,44 +27,34 @@ export function useAvoidButton() {
             const distanceY = clientY - buttonCenterY;
             const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-            // If cursor/touch is within 150px, jump to random position
+            // If cursor/touch is within 150px, jump to top or bottom
             if (distance < 150) {
-                // Generate random position anywhere on screen
-                const maxX = window.innerWidth - buttonRect.width - 20;
-                const maxY = window.innerHeight - buttonRect.height - 20;
+                // Alternate between top and bottom of the page
+                const horizontalPadding = 20; // Fixed padding for horizontal to prevent going off screen
+                const minVerticalPadding = 20;
+                const maxVerticalPadding = 200;
+                const verticalPadding =
+                    Math.random() * (maxVerticalPadding - minVerticalPadding) + minVerticalPadding;
 
-                const minDistance = 300; // Minimum distance from current position
-                const minDistanceFromInitial = 250; // Minimum distance from initial area to avoid overlapping with other buttons
-                let randomX: number;
-                let randomY: number;
-                let attempts = 0;
+                const randomX =
+                    Math.random() * (window.innerWidth - buttonRect.width - horizontalPadding * 2) +
+                    horizontalPadding;
+                let targetY: number;
 
-                // Keep generating random positions until we find one far enough away
-                do {
-                    randomX = Math.random() * maxX + 10;
-                    randomY = Math.random() * maxY + 10;
+                if (isAtTopRef.current) {
+                    // Jump to bottom
+                    targetY = window.innerHeight - buttonRect.height - verticalPadding;
+                } else {
+                    // Jump to top
+                    targetY = verticalPadding;
+                }
 
-                    const currentX = buttonRect.left;
-                    const currentY = buttonRect.top;
-                    const distToNew = Math.sqrt(
-                        Math.pow(randomX - currentX, 2) + Math.pow(randomY - currentY, 2),
-                    );
-
-                    // Also check distance from initial position area to avoid overlapping with nearby buttons
-                    const distFromInitial = Math.sqrt(
-                        Math.pow(randomX - initialPositionRef.current.x, 2) +
-                            Math.pow(randomY - initialPositionRef.current.y, 2),
-                    );
-
-                    if (distToNew >= minDistance && distFromInitial >= minDistanceFromInitial)
-                        break;
-                    attempts++;
-                } while (attempts < 30);
+                isAtTopRef.current = !isAtTopRef.current;
 
                 // Calculate offset from initial position
                 setPosition({
                     x: randomX - initialPositionRef.current.x,
-                    y: randomY - initialPositionRef.current.y,
+                    y: targetY - initialPositionRef.current.y,
                 });
             }
         };
