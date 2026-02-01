@@ -33,6 +33,7 @@ export function useAvoidButton() {
                 const maxY = window.innerHeight - buttonRect.height - 20;
 
                 const minDistance = 300; // Minimum distance from current position
+                const minDistanceFromInitial = 250; // Minimum distance from initial area to avoid overlapping with other buttons
                 let randomX: number;
                 let randomY: number;
                 let attempts = 0;
@@ -48,9 +49,16 @@ export function useAvoidButton() {
                         Math.pow(randomX - currentX, 2) + Math.pow(randomY - currentY, 2),
                     );
 
-                    if (distToNew >= minDistance) break;
+                    // Also check distance from initial position area to avoid overlapping with nearby buttons
+                    const distFromInitial = Math.sqrt(
+                        Math.pow(randomX - initialPositionRef.current.x, 2) +
+                            Math.pow(randomY - initialPositionRef.current.y, 2),
+                    );
+
+                    if (distToNew >= minDistance && distFromInitial >= minDistanceFromInitial)
+                        break;
                     attempts++;
-                } while (attempts < 20);
+                } while (attempts < 30);
 
                 // Calculate offset from initial position
                 setPosition({

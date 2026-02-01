@@ -12,7 +12,7 @@ export default function IubitPage({ params }: { params: Promise<{ slug: string }
     const { buttonRef, position } = useAvoidButton();
 
     return (
-        <main className='relative min-h-screen overflow-hidden bg-gradient-to-b from-rose-100 via-pink-100 to-red-100 select-none'>
+        <main className='fixed inset-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-rose-100 via-pink-100 to-red-100 select-none'>
             {/* Floating Hearts Background */}
             <div className='absolute inset-0 overflow-hidden pointer-events-none'>
                 {hearts.map((heart) => (
