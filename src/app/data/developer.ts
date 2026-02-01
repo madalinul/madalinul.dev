@@ -2,7 +2,7 @@ export const developer = {
     name: 'Madalin Ciciu',
     description:
         'Passionate Frontend Engineer with extensive experience in building scalable and high-performance web applications.',
-    image: 'https://media.licdn.com/dms/image/v2/D4D03AQGQ5hVObBIQbA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1731669561561?e=1749081600&v=beta&t=AXkXRkRtwxlrmLVoK_XuZrflvZNMTWwiLCLXg1hue1Q',
+    image: '/img/boss.jpeg',
     github: 'https://github.com/madalinul',
     linkedin: 'https://www.linkedin.com/in/madalin-ciciu/',
 };
@@ -15,7 +15,7 @@ export const experiences = [
         role: 'Senior Frontend Engineer',
         duration: 'Jan 2024 - Present',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://logo.clearbit.com/pepsico.com',
+        image: 'https://img.logo.dev/pepsico.com?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://sodastream.com/',
         description: [
             'Designed and implemented a highly performant, SEO-friendly eCommerce store using Next.js with SSG/ISR for optimal speed and scalability.',
@@ -29,7 +29,7 @@ export const experiences = [
         role: 'Senior Frontend Engineer',
         duration: 'Dec 2022 - Present',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://logo.clearbit.com/mimedia.com',
+        image: 'https://img.logo.dev/mimedia.com?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://portal.mimedia.com/',
         description: [
             'Developed a cloud storage platform with a full SDLC approach.',
@@ -43,7 +43,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Mar 2022 - Oct 2022',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://logo.clearbit.com/goshippo.com',
+        image: 'https://img.logo.dev/goshippo.com?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://goshippo.com/',
         description: [
             'Designed and developed a shared component library.',
@@ -57,7 +57,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Oct 2021 - Apr 2022',
         location: 'Remote - Bucharest, Romania',
-        image: 'https://logo.clearbit.com/softwaredefinedautomation.io',
+        image: 'https://img.logo.dev/softwaredefinedautomation.io?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://www.softwaredefinedautomation.io/',
         description: [
             'Built a code editor and grid-based infrastructure for deployments.',
@@ -71,7 +71,7 @@ export const experiences = [
         role: 'Frontend Engineer',
         duration: 'Mar 2021 - Dec 2021',
         location: 'Remote',
-        image: 'https://logo.clearbit.com/grubhub.com',
+        image: 'https://img.logo.dev/grubhub.com?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://www.grubhub.com/',
         description: [
             'Optimized performance using virtualization for large data sets.',
@@ -85,7 +85,7 @@ export const experiences = [
         role: 'Javascript Developer',
         duration: 'Nov 2015 - Mar 2021',
         location: 'Bucharest, Romania',
-        image: 'https://logo.clearbit.com/imajing.eu',
+        image: 'https://img.logo.dev/imajing.eu?token=pk_Vxz45N6_SXGznLc49HGTQg',
         link: 'https://imajing.eu/',
         description: [
             'Upgraded frontend from jQuery to React Redux stack.',
