@@ -2,7 +2,7 @@
 
 import { useAvoidButton } from '@/hooks/useAvoidButton';
 import Image from 'next/image';
-import { use, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import './style.css';
 
 const bottles = [
@@ -59,6 +59,10 @@ export default function BeerPage({ params }: { params: Promise<{ slug: string }>
     const capitalizedSlug = slug.charAt(0).toUpperCase() + slug.slice(1);
     const [answered, setAnswered] = useState<'yes' | 'no' | null>(null);
     const { buttonRef, position } = useAvoidButton();
+
+    useEffect(() => {
+        document.title = `Betiv - ${capitalizedSlug}`;
+    }, [capitalizedSlug]);
 
     return (
         <main className='relative min-h-screen overflow-hidden bg-gradient-to-b from-green-100 via-emerald-100 to-green-200 select-none'>

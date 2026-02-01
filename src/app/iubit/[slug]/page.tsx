@@ -2,7 +2,7 @@
 
 import { useAvoidButton } from '@/hooks/useAvoidButton';
 import { Heart } from 'lucide-react';
-import { use, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import './style.css';
 
 export default function IubitPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -10,6 +10,10 @@ export default function IubitPage({ params }: { params: Promise<{ slug: string }
     const capitalizedSlug = slug.charAt(0).toUpperCase() + slug.slice(1);
     const [answered, setAnswered] = useState<'yes' | 'no' | null>(null);
     const { buttonRef, position } = useAvoidButton();
+
+    useEffect(() => {
+        document.title = `Iubit - ${capitalizedSlug}`;
+    }, [capitalizedSlug]);
 
     return (
         <main className='fixed inset-0 h-screen w-screen overflow-hidden bg-gradient-to-b from-rose-100 via-pink-100 to-red-100 select-none'>
