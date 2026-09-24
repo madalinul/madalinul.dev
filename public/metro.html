@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Next Metro</title>
+<!--
+    Self-contained version of /metro for old browsers (e.g. Kindle): no network needed once loaded.
+    Uses the device clock. For testing, `?time=HH:MM` starts the clock at that time.
+    Script is plain ES5 on purpose.
+-->
+<style>
+    body { margin: 0; padding: 24px; font-family: sans-serif; color: #000; background: #fff; text-align: center; }
+    h1 { font-size: 36px; margin: 32px 0 24px; }
+    .label { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #555; }
+    .wait { font-size: 72px; font-weight: bold; margin: 8px 0; }
+    .at { font-size: 18px; color: #555; }
+    table { width: 100%; max-width: 320px; margin: 32px auto 0; border-collapse: collapse; border: 1px solid #999; }
+    td { padding: 12px 16px; border-top: 1px solid #999; text-align: left; }
+    td.in { text-align: right; color: #555; }
+    .now { font-size: 12px; color: #555; margin-top: 32px; }
+</style>
+</head>
+<body>
+<h1>😎</h1>
+<div id="app"><div class="label">Loading…</div></div>
+<script>
+(function () {
+    // Departure times, keyed by hour, as listed on the station timetable.
+    var SCHEDULE = {
+        4: [50],
+        5: [8, 25, 44, 58],
+        6: [8, 18, 32, 44, 55],
+        7: [7, 19, 30, 42, 54],
+        8: [6, 18, 30, 42, 54],
+        9: [6, 18, 30, 42, 56],
+        10: [12, 31, 49],
+        11: [7, 25, 43],
+        12: [1, 19, 37, 54],
+        13: [5, 15, 27, 39, 51],
+        14: [3, 15, 27, 39, 51],
+        15: [3, 15, 27, 39, 51],
+        16: [3, 15, 27, 38, 51],
+        17: [3, 15, 27, 39, 51],
+        18: [3, 15, 27, 39, 51],
+        19: [3, 15, 27, 39, 55],
+        20: [11, 29, 47],
+        21: [5, 23, 41, 59],
+        22: [17, 35, 53],
+        23: [11, 27]
+    };
+    var MINUTES_IN_DAY = 24 * 60;
+    var UPCOMING_COUNT = 4;
+
+    // Departures as minutes since midnight, sorted ascending.
+    var departures = [];
+    for (var hour in SCHEDULE) {
+        for (var i = 0; i < SCHEDULE[hour].length; i++) {
+            departures.push(Number(hour) * 60 + SCHEDULE[hour][i]);
+        }
+    }
+    departures.sort(function (a, b) { return a - b; });
+    var FIRST_DEPARTURE = departures[0];
+    var LAST_DEPARTURE = departures[departures.length - 1];
+
+    var app = document.getElementById('app');
+    var timer;
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function formatClock(minutes) { return pad(Math.floor(minutes / 60)) + ':' + pad(minutes % 60); }
+
+    function formatWait(minutes) {
+        if (minutes === 0) return 'now';
+        if (minutes < 60) return minutes + ' min';
+        var h = Math.floor(minutes / 60);
+        var m = minutes % 60;
+        return m === 0 ? h + ' h' : h + ' h ' + m + ' min';
+    }
+
+    // No service between the last train leaving and the first train of the next day.
+    function isClosed(now) { return now > LAST_DEPARTURE || now < FIRST_DEPARTURE; }
+
+    // Next departures from `now`, wrapping around to the next day after the last train.
+    function getUpcoming(now, count) {
+        var startIndex = -1;
+        for (var i = 0; i < departures.length; i++) {
+            if (departures[i] >= now) { startIndex = i; break; }
+        }
+        var upcoming = [];
+        for (var j = 0; j < count; j++) {
+            var index = startIndex === -1 ? j : startIndex + j;
+            var time = departures[index % departures.length];
+            var dayOffset = Math.floor(index / departures.length) + (startIndex === -1 ? 1 : 0);
+            upcoming.push({ time: time, waitMinutes: time + dayOffset * MINUTES_IN_DAY - now });
+        }
+        return upcoming;
+    }
+
+    function deviceMinutes() {
+        var d = new Date();
+        return d.getHours() * 60 + d.getMinutes();
+    }
+
+    var simulated = /[?&]time=(\d{1,2}):(\d{2})/.exec(location.search);
+    var offset = simulated ? Number(simulated[1]) * 60 + Number(simulated[2]) - deviceMinutes() : 0;
+
+    function render(now) {
+        if (isClosed(now)) {
+            app.innerHTML =
+                '<div class="label">No more trains today</div>' +
+                '<div class="at">First metro at ' + formatClock(FIRST_DEPARTURE) + '</div>';
+            return;
+        }
+        var upcoming = getUpcoming(now, UPCOMING_COUNT);
+        var rows = '';
+        for (var i = 1; i < upcoming.length; i++) {
+            rows += '<tr><td>' + formatClock(upcoming[i].time) + '</td>' +
+                '<td class="in">in ' + formatWait(upcoming[i].waitMinutes) + '</td></tr>';
+        }
+        app.innerHTML =
+            '<div class="label">Next metro in</div>' +
+            '<div class="wait">' + formatWait(upcoming[0].waitMinutes) + '</div>' +
+            '<div class="at">at ' + formatClock(upcoming[0].time) + '</div>' +
+            '<table><tbody>' + rows + '</tbody></table>' +
+            '<div class="now">Now ' + formatClock(now) + '</div>';
+    }
+
+    function tick() {
+        clearTimeout(timer);
+        var now = (deviceMinutes() + offset + MINUTES_IN_DAY) % MINUTES_IN_DAY;
+        render(now);
+
+        // Wake at the start of the next minute, or when service resumes if closed.
+        var minutesUntilNextTick = isClosed(now) ? (FIRST_DEPARTURE - now + MINUTES_IN_DAY) % MINUTES_IN_DAY : 1;
+        var msIntoMinute = new Date().getSeconds() * 1000 + new Date().getMilliseconds();
+        timer = setTimeout(tick, minutesUntilNextTick * 60000 - msIntoMinute);
+    }
+
+    // Timers can stall while the Kindle sleeps, so catch up as soon as the page is visible again.
+    document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) tick();
+    });
+
+    tick();
+})();
+</script>
+</body>
+</html>
